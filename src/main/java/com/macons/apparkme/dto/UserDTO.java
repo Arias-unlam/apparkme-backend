@@ -1,11 +1,10 @@
 package com.macons.apparkme.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
+@Data @AllArgsConstructor @NoArgsConstructor
 public class UserDTO {
     private String user;
     private String token;
