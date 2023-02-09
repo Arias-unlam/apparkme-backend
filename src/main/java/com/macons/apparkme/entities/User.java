@@ -1,4 +1,4 @@
-package com.macons.apparkme.dto;
+package com.macons.apparkme.entities;
 
 import lombok.*;
 
@@ -6,7 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-public class UserDTO {
+@Builder
+public class User {
+
     private String user;
-    private String token;
+    private String password;
 }
