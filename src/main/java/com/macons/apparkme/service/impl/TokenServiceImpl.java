@@ -31,7 +31,6 @@ public class TokenServiceImpl implements TokenService {
         Key signingKey = Keys.hmacShaKeyFor(apiKeySecretBytes);
 
         log.info("\n\n Creando token.... \n\n");
-        String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
         log.info("\n\n Generando Jwts.... \n\n");
