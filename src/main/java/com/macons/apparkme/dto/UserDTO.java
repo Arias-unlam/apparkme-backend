@@ -6,6 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
+@ToString
 public class UserDTO {
     private String user;
     private String token;
