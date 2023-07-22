@@ -23,6 +23,11 @@ public class LoginController {
         this.tokenService = tokenService;
     }
 
+    @GetMapping(value="health")
+    public ResponseEntity checkHealth(){
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PostMapping(value = "login")
     public ResponseEntity<UserDTO> login(@RequestParam("username") String username, @RequestParam("password") String pwd) {
         log.info("\n\n Logueando usuario..... \n\n", username);

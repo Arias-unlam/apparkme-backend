@@ -1,16 +1,15 @@
 package com.macons.apparkme.service.impl;
 
+import com.macons.apparkme.config.ApplicationProperties;
 import com.macons.apparkme.service.TokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
-import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,11 +17,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class TokenServiceImpl implements TokenService {
-    @Value("${jwt.token.secret}")
-    private String secret;
+
+    @Autowired
+    ApplicationProperties applicationProperties;
+
     @Override
     public String getJWTToken(String username) {
-        log.info("{}", secret);
+        log.info("{}", applicationProperties.secret);
         log.info("\n\n Creando token.... \n\n");
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
@@ -38,7 +39,7 @@ public class TokenServiceImpl implements TokenService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 600000))
                 .signWith(SignatureAlgorithm.HS512,
-                        secret.getBytes()).compact();
+                        applicationProperties.secret.getBytes()).compact();
         return "Bearer " + token;
     }
 
