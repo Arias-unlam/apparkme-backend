@@ -16,23 +16,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LoginController {
 
-    @Autowired
-    public TokenService tokenService;
+    private final TokenService tokenService;
 
-    @GetMapping("hola")
-    public String getHola(){
-        return "HOLA";
+    @Autowired
+    LoginController(TokenService tokenService){
+        this.tokenService = tokenService;
     }
 
     @PostMapping(value = "login")
     public ResponseEntity<UserDTO> login(@RequestParam("username") String username, @RequestParam("password") String pwd) {
         log.info("\n\n Logueando usuario..... \n\n", username);
         String token = tokenService.getJWTToken(username);
-        User user = User.builder().user(username).password(pwd).build();
+        User user = User.builder().username(username).password(pwd).build();
         UserDTO userDTO = UserMapper.INSTANCE.personaToPersonaDto(user);
         userDTO.setToken(token);
         log.info("\n\n El usuario {} se ha logueado con exito.... \n\n", username);
-        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
 
     }
 
