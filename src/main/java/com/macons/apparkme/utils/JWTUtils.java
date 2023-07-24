@@ -20,8 +20,8 @@ public class JWTUtils {
         return true;
     }
 
-    public static Claims validateToken(HttpServletRequest request, String SECRET) {
+    public static Claims validateToken(HttpServletRequest request, String secret) {
         String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+        return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(jwtToken).getBody();
     }
 }

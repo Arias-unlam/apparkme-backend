@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name="apparkme_users")
+//TODO: heredar de persona para poder obtener los datos de una persona completa
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
