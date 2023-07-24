@@ -11,12 +11,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
-        prePostEnabled = true
-)
 public class SecurityConfig {
 
     @Autowired
@@ -24,11 +18,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+        http.headers().frameOptions().disable();
         http.csrf()
                 .disable().addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/apparkme/api/v1/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/apparkme/api/v1/health").authenticated()
                 .anyRequest().permitAll();
 
         return http.build();
